@@ -23,8 +23,8 @@ $ make install
 To set up environment add the following to the file `~/.bashrc`:  
 ```bash
 STG=$HOME/stage-lib
-export LD_LIBRARY_PATH=$STG/lib64  # note: may be 'lib'
-export PKG_CONFIG_PATH=$STG/lib64/pkgconfig
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$STG/lib64  # note: may be 'lib'
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$STG/lib64/pkgconfig
 export PATH=$PATH:$STG/bin
 ```
 
