@@ -1,0 +1,98 @@
+# Ant world
+
+include "pioneer.inc"
+include "map.inc"
+
+interval_sim 20
+#speedup 100
+paused 1
+
+# time at which to pause (in GUI mode) or quit (in headless mode) the simulation
+#quit_time 3600 # 1 hour of simulated time
+
+resolution 0.02
+
+threads 2
+
+# configure the GUI window
+window
+(
+  size [ 683 713 ]
+
+  center [ -0.062 -0.411 ]
+  rotate [ 0.000 0.500 ]
+  scale 20.857
+
+  show_data 1
+  show_flags 1
+
+  #interval 10
+)
+
+# load an environment bitmap
+floorplan
+(
+  name "cave"
+  pose [0.000 0.000 0.000 0.000]
+  size [32.000 32.000 0.600]
+  bitmap "bitmaps/cave.png"
+)
+
+define home zone
+(
+  color "brown"
+  name "home"
+  fiducial_return 31
+
+  #ctrl "sink"
+)
+
+define food zone
+(
+  fiducial_return 32 
+  color "blue"
+  #ctrl "source"
+)
+
+define antbot pioneer2dx
+(
+  fiducial
+  (
+    range_min 0.0
+    range_max 5.0
+    range_max_id 5.0
+    # TODO(jacobperron): fov property is buggy 
+    #fov 1.57
+    # TODO(jacobperron): bug when ignore_zloc = 1 and obstacle is behind object, then no detection (model_fiducial.cc line 185)
+    ignore_zloc 0 
+    size [0.100 0.100 0.100]
+    pose [0.000 0.000 -0.210 0.000]
+  )
+  fiducial_return 0
+
+  ctrl "../build/antbot"
+)
+
+# Spawn AntBot's home
+home
+(
+  size [ 2.000 2.000 0.030 ]
+  pose [ 10.809 11.988 0.000 0.000 ]
+)
+
+# Spawn AntBots
+antbot(pose [10.229 11.431 0.000 -155.749] name "ant_0")
+#antbot(pose [4.651 5.923 0.000 144.089] name "ant_1")
+antbot(pose [10.149 12.563 0.000 -175.803] name "ant_2")
+#antbot(pose [5.985 4.656 0.000 -58.920] name "ant_3")
+antbot(pose [11.399 11.459 0.000 -90.433] name "ant_4")
+antbot(pose [10.780 11.883 0.000 -144.864] name "ant_5")
+#antbot(pose [5.987 5.301 0.000 6.970] name "ant_6")
+antbot(pose [10.695 12.599 0.000 86.220] name "ant_7")
+antbot(pose [11.281 12.513 0.000 51.844] name "ant_8")
+
+# Spawn food sources
+food(size [0.500 0.500 0.030] pose [10.386 -5.441 0.000 -103.132] name "food_0")
+food(size [0.500 0.500 0.030] pose [-13.407 5.960 0.000 37.242] name "food_1")
+food(size [0.500 0.500 0.030] pose [-8.759 -12.077 0.000 14.324] name "food_2")
+
