@@ -9,7 +9,7 @@ Redistribution and use in source and binary forms, with or without modification,
 the following conditions are met:
  * Redistributions of source code must retain the above copyright notice, this list of conditions and the
    following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the 
+ * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
    following disclaimer in the documentation and/or other materials provided with the distribution.
  * Neither the name of Clearpath Robotics nor the names of its contributors may be used to endorse or promote
    products derived from this software without specific prior written permission.
@@ -86,8 +86,8 @@ public:
   // Range of crumb sensor
   static const double MIN_CRUMB_FIDUCIAL_RANGE = 2.0;  // m
 
-  // Half FOV of crumb sensor (value of pi/2 can detect crumbs with 360 degree FOV)
-  static const double CRUMB_FIDUCIAL_HALF_FOV = 1.57;  //0.785;  // Radians
+  // Half FOV of crumb sensor (value of pi can detect crumbs with 360 degree FOV)
+  static const double CRUMB_FIDUCIAL_HALF_FOV = M_PI;  // Radians
 
   // Distance to maintain from anti-crumbs
   static const double SO_LOST_CRUMB_DISTANCE = 1.0;
