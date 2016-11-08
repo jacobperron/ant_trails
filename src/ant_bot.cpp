@@ -9,7 +9,7 @@ Redistribution and use in source and binary forms, with or without modification,
 the following conditions are met:
  * Redistributions of source code must retain the above copyright notice, this list of conditions and the
    following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the 
+ * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
    following disclaimer in the documentation and/or other materials provided with the distribution.
  * Neither the name of Clearpath Robotics nor the names of its contributors may be used to endorse or promote
    products derived from this software without specific prior written permission.
@@ -487,7 +487,7 @@ void AntBot::broadcastCrumbs()
   }
 
   // Reverse distances of local crumbs so they approximate the distance to the destination
-  for (size_t i = 0; i < ((local_crumbs_.size() / 2) - 1); i++)
+  for (size_t i = 0; i < (local_crumbs_.size() / 2); i++)
   {
     const size_t j = local_crumbs_.size() - i - 1;
     const double tmp_weight = local_crumbs_[i].getWeight();
