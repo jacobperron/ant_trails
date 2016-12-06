@@ -11,7 +11,7 @@ the following conditions are met:
    following disclaimer.
  * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
    following disclaimer in the documentation and/or other materials provided with the distribution.
- * Neither the name of Clearpath Robotics nor the names of its contributors may be used to endorse or promote
+ * Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote
    products derived from this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WAR-
@@ -401,26 +401,37 @@ bool AntBot::checkCrumbs(const int goal)
     {
       Stg::Pose anti_crumb_pose = anti_crumb.getPose();
 
-      if (computeEuclidDistance(anti_crumb_pose, curr_pose_) < SO_LOST_CRUMB_DISTANCE)
+      const double dist_between_crumbs = computeEuclidDistance(anti_crumb_pose, nav_goal_pose_);
+      if (dist_between_crumbs < SO_LOST_CRUMB_DISTANCE)
       {
         // NOTE(jacobperron): std::min crashes if given SO_LIST_CRUMB_DISTANCE directly, I guess because it is static
         const double so_lost_crumb_dist = SO_LOST_CRUMB_DISTANCE;
         const double shift_dist = std::min(min_range_left_, so_lost_crumb_dist) / 2.0;
 
-        // Compute normalized vector from robot to crumb and rotate by 90 degrees to apply shift
-        double robot_to_crumb_x = anti_crumb_pose.x - curr_pose_.x;
-        double robot_to_crumb_y = anti_crumb_pose.y - curr_pose_.y;
-        const double robot_to_crumb_mag = sqrt(robot_to_crumb_x * robot_to_crumb_x +
-                                               robot_to_crumb_y * robot_to_crumb_y);
-        const double shift_y = -(robot_to_crumb_x / robot_to_crumb_mag) * shift_dist;
-        const double shift_x = (robot_to_crumb_y / robot_to_crumb_mag) * shift_dist;
+        double shift_x;
+        double shift_y;
+        // Avoid case where nav goal and anti-crumb are in same position (divide by zero)
+        if (dist_between_crumbs > 0.0001)
+        {
+          // Compute normalized vector from robot to crumb and rotate by 90 degrees to apply shift
+          double robot_to_crumb_x = anti_crumb_pose.x - nav_goal_pose_.x;
+          double robot_to_crumb_y = anti_crumb_pose.y - nav_goal_pose_.y;
+          const double robot_to_crumb_mag = sqrt(robot_to_crumb_x * robot_to_crumb_x +
+                                                 robot_to_crumb_y * robot_to_crumb_y);
+          shift_y = (robot_to_crumb_x / robot_to_crumb_mag) * shift_dist;
+          shift_x = (robot_to_crumb_y / robot_to_crumb_mag) * shift_dist;
+        }
+        else
+        {
+          shift_x = cos(nav_goal_pose_.a) * shift_dist;
+          shift_y = sin(nav_goal_pose_.a) * shift_dist;
+        }
 
         // Apply navigation goal shift
         nav_goal_pose_.x += shift_x;
         nav_goal_pose_.y += shift_y;
         shifted = true;
       }
-
     }
   }
   j++;

@@ -11,7 +11,7 @@ the following conditions are met:
    following disclaimer.
  * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
    following disclaimer in the documentation and/or other materials provided with the distribution.
- * Neither the name of Clearpath Robotics nor the names of its contributors may be used to endorse or promote
+ * Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote
    products derived from this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WAR-
@@ -81,7 +81,7 @@ public:
   static const double MIN_HOME_RANGE = 0.2;  // m
 
   // Distance to center of a FOOD source to be considered arrived
-  static const double MIN_FOOD_RANGE = 0.3;  // m
+  static const double MIN_FOOD_RANGE = 0.2;  // m
 
   // Range of crumb sensor
   static const double MIN_CRUMB_FIDUCIAL_RANGE = 2.0;  // m
