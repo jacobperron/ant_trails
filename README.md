@@ -53,4 +53,4 @@ $ cd ../worlds
 $ stage ant.world
 ```
 
-Press 'P' to start/pause and '[' and ']' to decrease or increase the rate at which time passes.
+Press 'P' to start/pause and press '[' to decrease or ']' to increase the rate at which time passes.
